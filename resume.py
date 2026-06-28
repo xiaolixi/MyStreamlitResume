@@ -8,7 +8,20 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
-
+# 注入样式，让badge支持自动换行，增加间距更好看
+st.markdown("""
+<style>
+/* 文本允许自动换行 */
+div[data-testid="stMarkdown"] p {
+    white-space: normal !important;
+}
+/* 徽章改为行内块，上下左右留边，换行不挤在一起 */
+span[class*="badge"] {
+    display: inline-block !important;
+    margin: 6px 8px 6px 0 !important;
+}
+</style>
+""", unsafe_allow_html=True)
 # ====================== 全新改版侧边栏 ======================
 with st.sidebar:
     # 顶部头像占位区域
@@ -27,10 +40,13 @@ with st.sidebar:
     # 个人简介卡片
     with st.container(border=True):
         st.subheader("📝 个人介绍")
-        st.write("""
-        拥有Java后端、云原生运维、嵌入式单片机、ROS2机器人，可独立完成项目从开发、部署到可视化落地全流程。
-        """)
+        st.markdown("""
+        :orange-badge[:material/star: 哈工程硕士｜5年+互联网｜高校教师]
 
+        """)
+        st.markdown("""
+            `拥有Java后端、云原生运维、嵌入式单片机、ROS2机器人，可独立完成项目从开发、部署到可视化落地全流程。`
+            """)
     st.divider()
 
     # 技术栈分类卡片 + 对应徽章
@@ -56,7 +72,7 @@ with st.sidebar:
         st.success("骑行")
 
     st.divider()
-    st.caption("本简历页面由 Streamlit 制作")
+    st.caption("✨ 基于 Streamlit 搭建的个人技能页面")
 
 # 首页头部 + 封面大图
 st.title("🚀 技能爱好全景介绍")
@@ -162,4 +178,3 @@ st.markdown("""
 
 # 底部水印
 st.divider()
-st.caption("✨ 基于 Streamlit 搭建的个人技术能力展示页面")
